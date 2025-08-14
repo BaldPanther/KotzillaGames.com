@@ -1,0 +1,27 @@
+name: Update app-ads.txt
+
+on:
+  schedule:
+    - cron: "0 0,12 * * *" # каждый день в 00:00 и 12:00 UTC
+  workflow_dispatch: # запуск вручную
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download latest app-ads.txt
+        run: |
+          curl -s https://raw.githubusercontent.com/cleveradssolutions/App-ads.txt/main/app-ads.txt -o app-ads.txt
+
+      - name: Commit changes if any
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add app-ads.txt
+          git commit -m "Update app-ads.txt" || echo "No changes"
+          git push
