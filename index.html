@@ -1,148 +1,1003 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" data-lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kotzilla Games</title>
+    <title>Kotzilla Games - Indie Game Studio</title>
+    <link rel="icon" href="/assets/ui/Logo_KotzillaGames.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
-            color: white;
-            height: 100vh;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .header-social a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
             overflow: hidden;
+            text-decoration: none;
         }
 
-        /* Параллакс фон */
-        .parallax {
+        .header-social a::before {
+            content: '';
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 60%),
-                        radial-gradient(circle at 30% 70%, rgba(255,255,255,0.04) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
-            animation: move 20s linear infinite;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
         }
 
-        @keyframes move {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(-50px, -50px); }
-            100% { transform: translate(0, 0); }
+        .header-social a:hover::before {
+            width: 60px;
+            height: 60px;
         }
 
-        /* Контент */
-        .container {
+        .header-social a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 107, 107, 0.2);
+            color: #000;
+        }
+
+        .header-social a i {
             position: relative;
             z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            text-align: center;
-            animation: fadeIn 2s ease-in-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0.3rem;
+        }
+
+        .lang-btn {
+            padding: 0.3rem 0.8rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo img {
-            width: 120px;
-            height: auto;
-            margin-bottom: 0.3em;
-            animation: float 3s ease-in-out infinite;
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff" fill-opacity="0.02" points="0,1000 1000,0 1000,1000"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-logo-container {
+            position: relative;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .hero-logo {
+            width: 500px;
+            height: 500px;
+            object-fit: contain;
+            /* Настройка вертикального положения логотипа относительно текста - измените margin-bottom для смещения */
+            margin-bottom: -40px; /* Отрицательное значение поднимает логотип выше, положительное - опускает */
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 50px rgba(255, 107, 107, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 107, 107, 0.3); }
+            to { text-shadow: 0 0 50px rgba(255, 107, 107, 0.6); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Games Section */
+        .games-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 10;
+        }
+
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: stretch;
+            min-height: 180px;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(255, 217, 61, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.2);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+
+        .game-icon {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            background: transparent;
+            flex-shrink: 0;
+        }
+
+        .game-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .game-icon.emoji {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+        }
+
+        .game-content {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-title {
+            font-size: 2rem;
+            margin: 0;
+            color: #ffffff;
+            align-self: start;
+        }
+
+        .game-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            line-height: 1.6;
+            align-self: center;
+        }
+
+        .download-section {
+            align-self: end;
+        }
+
+        .download-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .platform-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .platform-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .platform-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .platform-btn:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .platform-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            color: #000;
+        }
+
+        .platform-btn span, .platform-btn i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .platform-btn.press-kit {
+            width: auto;
+            padding: 0 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            gap: 0.5rem;
+        }
+
+        /* Специальные цвета для платформ и соц сетей при ховере */
+        .platform-btn.google-play:hover::before,
+        .header-social a.google-play:hover::before,
+        .social-links a.google-play:hover::before {
+            background: linear-gradient(45deg, #01875f, #4285f4);
+        }
+
+        .platform-btn.app-store:hover::before,
+        .header-social a.app-store:hover::before,
+        .social-links a.app-store:hover::before {
+            background: linear-gradient(45deg, #007aff, #5856d6);
+        }
+
+        .platform-btn.steam:hover::before,
+        .header-social a.steam:hover::before,
+        .social-links a.steam:hover::before {
+            background: linear-gradient(45deg, #1b2838, #66c0f4);
+        }
+
+        .platform-btn.youtube:hover::before,
+        .header-social a.youtube:hover::before,
+        .social-links a.youtube:hover::before {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+        }
+
+        .platform-btn.press-kit:hover::before,
+        .header-social a.press-kit:hover::before,
+        .social-links a.press-kit:hover::before {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+        }
+
+        .header-social a.email:hover::before,
+        .social-links a.email:hover::before {
+            background: linear-gradient(45deg, #ea4335, #fbbc05);
+        }
+
+        .header-social a.twitter:hover::before,
+        .social-links a.twitter:hover::before {
+            background: linear-gradient(45deg, #1da1f2, #0d8bd9);
+        }
+
+        .header-social a.tiktok:hover::before,
+        .social-links a.tiktok:hover::before {
+            background: linear-gradient(45deg, #ff0050, #000000);
+        }
+
+        .header-social a.discord:hover::before,
+        .social-links a.discord:hover::before {
+            background: linear-gradient(45deg, #5865f2, #4752c4);
+        }
+
+        .header-social a.telegram:hover::before,
+        .social-links a.telegram:hover::before {
+            background: linear-gradient(45deg, #0088cc, #0066aa);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 15, 15, 0.95);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-section {
+            margin-bottom: 2rem;
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .social-section {
+            margin-bottom: 2rem;
+        }
+
+        .social-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-email {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-email:hover {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            border-color: rgba(255, 107, 107, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .social-links a:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            color: #000;
+            text-decoration: none;
+        }
+
+        .social-links a i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .tooltip:not(.platform-btn)::before {
+            content: '';
+            position: absolute;
+            bottom: 102%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.9);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .tooltip:not(.platform-btn):hover::after,
+        .tooltip:not(.platform-btn):hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-logo {
+                width: 300px;
+                height: 300px;
+                margin-bottom: -50px;
+            }
+            
+            .game-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .game-icon {
+                justify-self: center;
+                width: 250px;
+                height: 250px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .header-social {
+                order: -1;
+            }
+            
+            .nav-left {
+                flex-direction: column-reverse;
+                gap: 1rem;
+            }
+            
+            .platform-links {
+                justify-content: center;
+            }
+        }
+
+        /* Floating particles animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 107, 107, 0.5);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        h1 {
-            font-size: 3em;
-            margin-bottom: 0.2em;
-        }
-
-        p {
-            font-size: 1.2em;
-            color: #cccccc;
-            max-width: 500px;
-        }
-
-        /* Кнопка */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 20px;
-            padding: 12px 20px;
-            font-size: 1em;
-            font-weight: bold;
-            color: white;
-            background: #ff4757;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #ff6b81;
-        }
-
-        .btn img {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            border-radius: 4px;
-        }
-
-        /* Press Kit */
-        .press-kit {
-            margin-top: 30px;
-            font-size: 1em;
-        }
-        .press-kit a {
-            color: #1abc9c;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .press-kit a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            font-size: 0.9em;
-            color: #888;
-            z-index: 2;
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="parallax"></div>
+    <!-- Floating particles -->
+    <div class="particles"></div>
 
-    <div class="container">
-        <div class="logo">
-            <!-- Заменить ссылку на свой логотип PNG -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2048px-React-icon.svg.png" alt="Kotzilla Logo">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <div class="logo">
+                    <img src="https://kotzillagames.com/assets/ui/Logo_KotzillaGames.png" alt="Kotzilla Games Logo">
+                    Kotzilla Games
+                </div>
+                <div class="header-social">
+                    <a href="mailto:kotzillagames@gmail.com" class="email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@KotzillaGames" class="youtube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <!-- <a href="https://www.tiktok.com/@euphoriahorrorgames" class="tiktok" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a> -->
+                    <a href="https://x.com/kotzillagames" class="twitter" target="_blank">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <!-- <a href="https://discord.gg/pCcEkUwhbs" class="discord" target="_blank">
+                        <i class="fab fa-discord"></i>
+                    </a> -->
+                    <a href="https://t.me/KotzillaGames" class="telegram" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <ul class="nav-links">
+                    <li><a href="#home" data-ru="Главная" data-en="Home">Главная</a></li>
+                    <li><a href="#games" data-ru="Игры" data-en="Games">Игры</a></li>
+                    <li><a href="#contact" data-ru="Контакты" data-en="Contact">Контакты</a></li>
+                </ul>
+                <div class="lang-switch">
+                    <button class="lang-btn active" onclick="switchLanguage('ru')">RU</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-logo-container">
+                <img src="https://kotzillagames.com/assets/ui/Logo_Big_KotzillaGames.png" alt="Kotzilla Games Big Logo" class="hero-logo">
+                <h1>Kotzilla Games</h1>
+            </div>
+            <p data-ru="Инди-студия, создающая уникальные игровые миры" data-en="Indie studio creating unique gaming worlds">Инди-студия, создающая уникальные игровые миры</p>
+            <a href="#games" class="cta-button" data-ru="Наши игры" data-en="Our Games">Наши игры</a>
         </div>
-        <h1>Kotzilla Games</h1>
-        <p>Indie game studio creating thrilling co-op horror experiences.</p>
+    </section>
 
-        <a class="btn" href="https://play.google.com/store/apps/details?id=com.BaldPanther.MadGran.Scary.Horror.Escape" target="_blank">
-            <img src="https://play-lh.googleusercontent.com/ufoKexTvgQ7OAlhB27LqHdxOgjGqa9hzRXQXGBcrwBcszWVu0RnM_jm7JkV1sQtCOhU=s48" alt="Game Icon">
-            Play MadGran on Google Play
-        </a>
+    <!-- Games Section -->
+    <section class="games-section" id="games">
+        <h2 class="section-title" data-ru="Наши игры" data-en="Our Games">Наши игры</h2>
+        
+        <div class="games-grid">
+            <!-- Game 1: MadGran -->
+            <div class="game-card">
+                <div class="game-icon">
+                    <img src="https://kotzillagames.com/assets/games/madgran/icon.png" alt="MadGran Game Icon">
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">MadGran</h3>
+                    <p class="game-description" data-ru="Захватывающий хоррор-экшен с уникальной атмосферой и неожиданными поворотами сюжета." data-en="Thrilling horror-action with unique atmosphere and unexpected plot twists.">Захватывающий хоррор-экшен с уникальной атмосферой и неожиданными поворотами сюжета.</p>
+                    <div class="download-section">
+                        <div class="download-label" data-ru="Загрузить:" data-en="Download:">Загрузить:</div>
+                        <div class="platform-links">
+                            <a href="https://play.google.com/store/apps/details?id=com.BaldPanther.MadGran.Scary.Horror.Escape" class="platform-btn google-play tooltip" target="_blank" data-tooltip="Google Play">
+                                <i class="fab fa-google-play"></i>
+                            </a>
+                            <!-- <a href="#" class="platform-btn app-store tooltip" target="_blank" data-tooltip="App Store">
+                                <i class="fab fa-apple"></i>
+                            </a>
+                            <a href="#" class="platform-btn steam tooltip" target="_blank" data-tooltip="Steam">
+                                <i class="fab fa-steam"></i>
+                            </a> -->
+                            <a href="https://drive.google.com/drive/folders/1bmEMkVwUWaW68rBTXgTzQcCWc_e7JPZa" class="platform-btn press-kit tooltip" target="_blank" data-tooltip="Press Kit">
+                                <i class="fas fa-download"></i>
+                                <span>Press Kit</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="press-kit">
-            🎨 <a href="https://drive.google.com/drive/folders/1bmEMkVwUWaW68rBTXgTzQcCWc_e7JPZa" target="_blank">Материалы для превью (Press Kit)</a>
+            <!-- Game 2: 2048 3D Cubes -->
+            <div class="game-card">
+                <div class="game-icon">
+                    <img src="https://kotzillagames.com/assets/games/cubes2048/icon.png" alt="2048 3D Cubes Game Icon">
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title" data-ru="Кубики 2048 3D" data-en="2048 3D Cubes">Кубики 2048 3D</h3>
+                    <p class="game-description" data-ru="Трехмерная версия популярной головоломки 2048. Соединяйте кубики с одинаковыми числами в захватывающем 3D пространстве." data-en="Three-dimensional version of the popular 2048 puzzle. Combine cubes with matching numbers in exciting 3D space.">Трехмерная версия популярной головоломки 2048. Соединяйте кубики с одинаковыми числами в захватывающем 3D пространстве.</p>
+                    <div class="download-section">
+                        <div class="download-label" data-ru="Загрузить:" data-en="Download:">Загрузить:</div>
+                        <div class="platform-links">
+                            <a href="https://play.google.com/store/apps/details?id=com.BaldPanther.X2Blocks3D" class="platform-btn google-play tooltip" target="_blank" data-tooltip="Google Play">
+                                <i class="fab fa-google-play"></i>
+                            </a>
+                            <!-- <a href="#" class="platform-btn app-store tooltip" target="_blank" data-tooltip="App Store">
+                                <i class="fab fa-apple"></i>
+                            </a>
+                            <a href="#" class="platform-btn steam tooltip" target="_blank" data-tooltip="Steam">
+                                <i class="fab fa-steam"></i>
+                            </a>
+                            <a href="#" class="platform-btn press-kit tooltip" target="_blank" data-tooltip="Press Kit">
+                                <i class="fas fa-download"></i>
+                                <span>Press Kit</span> -->
+                            </a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <footer>© 2025 Kotzilla Games. All rights reserved.</footer>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="contact-section">
+                <h2 class="contact-title" data-ru="Контакты" data-en="Contact">Контакты</h2>
+                <a href="mailto:kotzillagames@gmail.com" class="contact-email">kotzillagames@gmail.com</a>
+            </div>
+            <div class="social-section">
+                <h2 class="social-title" data-ru="Подпишитесь на нас" data-en="Follow us">Подпишитесь на нас</h2>
+                <div class="social-links">
+                    <!-- <a href="mailto:kotzillagames@gmail.com" class="email">
+                        <i class="fas fa-envelope"></i>
+                    </a> -->
+                    <a href="https://www.youtube.com/@KotzillaGames" class="youtube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <!-- <a href="https://www.tiktok.com/@euphoriahorrorgames" class="tiktok" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a> -->
+                    <a href="https://x.com/kotzillagames" class="twitter" target="_blank">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <!-- <a href="https://discord.gg/pCcEkUwhbs" class="discord" target="_blank">
+                        <i class="fab fa-discord"></i>
+                    </a> -->
+                    <a href="https://t.me/KotzillaGames" class="telegram" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            <p data-ru="© 2025 Kotzilla Games. Все права защищены." data-en="© 2025 Kotzilla Games. All rights reserved.">&copy; 2025 Kotzilla Games. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Функция переключения языка
+        function switchLanguage(lang) {
+            const html = document.documentElement;
+            html.setAttribute('data-lang', lang);
+            
+            // Обновляем активную кнопку языка
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="switchLanguage('${lang}')"]`).classList.add('active');
+            
+            // Обновляем все элементы с переводами
+            document.querySelectorAll('[data-ru][data-en]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+
+        // Создание плавающих частиц
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Анимация появления карточек игр при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Начальное состояние для анимации
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Parallax эффект для hero секции
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.25}px)`;
+        });
+    </script>
 </body>
 </html>
